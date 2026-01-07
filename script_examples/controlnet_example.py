@@ -19,7 +19,8 @@ from urllib import request
 
 server_address = "127.0.0.1:8188"
 
-# MiDaS depth preprocessor parameter (2 * pi)
+# MiDaS depth preprocessor 'a' parameter represents the field of view angle (2π radians = 360 degrees)
+# This controls the depth estimation range and perspective
 TWO_PI = 2 * math.pi
 
 

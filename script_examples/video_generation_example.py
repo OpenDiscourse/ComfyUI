@@ -18,7 +18,8 @@ from urllib import request
 
 server_address = "127.0.0.1:8188"
 
-# CLIP text encoder has a maximum token limit
+# CLIP text encoder token limit (maximum tokens, not characters)
+# This limit applies to the CLIP model and may vary by implementation
 CLIP_TOKEN_LIMIT = 77
 
 
