@@ -286,7 +286,9 @@ def generate_text_to_video_hunyuan(
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["llm"] = prompt
-    workflow["2"]["inputs"]["clip_l"] = prompt[:CLIP_TOKEN_LIMIT]  # CLIP has token limit
+    # Note: This is a character-based approximation. True token count would require CLIP tokenizer.
+    # For production use, consider truncating prompts or using the tokenizer directly.
+    workflow["2"]["inputs"]["clip_l"] = prompt[:CLIP_TOKEN_LIMIT]
     workflow["3"]["inputs"]["clip_l"] = negative_prompt
     workflow["4"]["inputs"]["width"] = width
     workflow["4"]["inputs"]["height"] = height
@@ -334,6 +336,7 @@ def generate_image_to_video_hunyuan(
     workflow["2"]["inputs"]["image"] = image_filename
     workflow["3"]["inputs"]["clip_name"] = clip_vision
     workflow["5"]["inputs"]["llm"] = prompt
+    # Note: Character-based approximation of token limit
     workflow["5"]["inputs"]["clip_l"] = prompt[:CLIP_TOKEN_LIMIT]
     workflow["6"]["inputs"]["clip_l"] = negative_prompt
     workflow["7"]["inputs"]["width"] = width
