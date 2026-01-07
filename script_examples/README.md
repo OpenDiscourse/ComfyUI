@@ -179,6 +179,40 @@ generate_with_character_reference(
 
 **Note**: Face swapping typically requires custom nodes like ReActor or InstantID.
 
+### 8. advanced_workflows_example.py
+**Advanced multi-technique workflows**
+
+Complex workflows combining multiple techniques:
+- **Style Transfer with ControlNet**: Stylize while preserving structure
+- **Batch Processing**: Process multiple images with same settings
+- **Animation Sequences**: Generate frame sequences for animation
+- **Multi-Resolution**: Generate same prompt at different resolutions
+
+Features:
+- ✅ Combined ControlNet and style transfer
+- ✅ Batch processing utilities
+- ✅ Seed-based animation sequences
+- ✅ Multi-resolution generation
+- ✅ Reusable workflow templates
+
+```python
+from advanced_workflows_example import style_transfer_with_controlnet, batch_process_images
+
+# Style transfer preserving structure
+style_transfer_with_controlnet(
+    content_image="photo.png",
+    style_description="impressionist painting, vibrant colors",
+    structure_strength=0.7
+)
+
+# Batch process
+batch_process_images(
+    image_files=["img1.png", "img2.png"],
+    process_function=upscale_image,
+    upscale_model="RealESRGAN_x4plus.pth"
+)
+```
+
 ## Usage Patterns
 
 ### Basic Usage
@@ -307,6 +341,7 @@ for image in images:
 | controlnet_example | SD checkpoint + ControlNet models |
 | image_enhancement_example | SD checkpoint + Upscale models |
 | face_character_example | SD checkpoint + IP-Adapter + CLIP Vision |
+| advanced_workflows_example | SD checkpoint + ControlNet (varies by workflow) |
 
 ## Tips
 
