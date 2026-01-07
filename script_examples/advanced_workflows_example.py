@@ -12,10 +12,14 @@ These are more complex examples that combine techniques from other examples.
 
 import json
 import copy
+import math
 from urllib import request
 import time
 
 server_address = "127.0.0.1:8188"
+
+# MiDaS depth preprocessor parameter (2 * pi)
+TWO_PI = 2 * math.pi
 
 
 def queue_prompt(prompt):
@@ -58,7 +62,7 @@ style_transfer_controlnet_workflow = {
     "5": {
         "class_type": "MiDaS-DepthMapPreprocessor",
         "inputs": {
-            "a": 6.283185307179586,
+            "a": TWO_PI,
             "bg_threshold": 0.1,
             "resolution": 512,
             "image": ["2", 0]

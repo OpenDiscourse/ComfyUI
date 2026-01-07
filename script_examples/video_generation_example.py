@@ -18,6 +18,9 @@ from urllib import request
 
 server_address = "127.0.0.1:8188"
 
+# CLIP text encoder has a maximum token limit
+CLIP_TOKEN_LIMIT = 77
+
 
 def queue_prompt(prompt):
     """Send a prompt to the ComfyUI server"""
@@ -282,7 +285,7 @@ def generate_text_to_video_hunyuan(
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["llm"] = prompt
-    workflow["2"]["inputs"]["clip_l"] = prompt[:77]  # CLIP has token limit
+    workflow["2"]["inputs"]["clip_l"] = prompt[:CLIP_TOKEN_LIMIT]  # CLIP has token limit
     workflow["3"]["inputs"]["clip_l"] = negative_prompt
     workflow["4"]["inputs"]["width"] = width
     workflow["4"]["inputs"]["height"] = height
@@ -330,7 +333,7 @@ def generate_image_to_video_hunyuan(
     workflow["2"]["inputs"]["image"] = image_filename
     workflow["3"]["inputs"]["clip_name"] = clip_vision
     workflow["5"]["inputs"]["llm"] = prompt
-    workflow["5"]["inputs"]["clip_l"] = prompt[:77]
+    workflow["5"]["inputs"]["clip_l"] = prompt[:CLIP_TOKEN_LIMIT]
     workflow["6"]["inputs"]["clip_l"] = negative_prompt
     workflow["7"]["inputs"]["width"] = width
     workflow["7"]["inputs"]["height"] = height
