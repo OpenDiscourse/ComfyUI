@@ -11,6 +11,7 @@ These are more complex examples that combine techniques from other examples.
 """
 
 import json
+import copy
 from urllib import request
 import time
 
@@ -144,7 +145,7 @@ def create_batch_workflow(image_files, base_workflow):
     batch_workflows = []
     
     for idx, image_file in enumerate(image_files):
-        workflow = json.loads(json.dumps(base_workflow))
+        workflow = copy.deepcopy(base_workflow)
         # Update image input (adjust node ID as needed)
         if "2" in workflow and "inputs" in workflow["2"]:
             workflow["2"]["inputs"]["image"] = image_file
@@ -183,7 +184,7 @@ def style_transfer_with_controlnet(
         cfg: CFG scale
         seed: Random seed
     """
-    workflow = json.loads(json.dumps(style_transfer_controlnet_workflow))
+    workflow = copy.deepcopy(style_transfer_controlnet_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["image"] = content_image

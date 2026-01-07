@@ -13,6 +13,7 @@ Requirements:
 """
 
 import json
+import copy
 from urllib import request
 
 server_address = "127.0.0.1:8188"
@@ -57,26 +58,26 @@ openpose_controlnet_workflow = {
         }
     },
     "5": {
-        "class_type": "ControlNetApply",
-        "inputs": {
-            "strength": 1.0,
-            "conditioning": ["7", 0],
-            "control_net": ["3", 0],
-            "image": ["4", 0]
-        }
-    },
-    "6": {
         "class_type": "CLIPTextEncode",
         "inputs": {
             "text": "a professional dancer in elegant pose, studio lighting, high quality",
             "clip": ["1", 1]
         }
     },
-    "7": {
+    "6": {
         "class_type": "CLIPTextEncode",
         "inputs": {
             "text": "blurry, low quality, distorted limbs, bad anatomy",
             "clip": ["1", 1]
+        }
+    },
+    "7": {
+        "class_type": "ControlNetApply",
+        "inputs": {
+            "strength": 1.0,
+            "conditioning": ["5", 0],
+            "control_net": ["3", 0],
+            "image": ["4", 0]
         }
     },
     "8": {
@@ -97,8 +98,8 @@ openpose_controlnet_workflow = {
             "scheduler": "normal",
             "denoise": 1.0,
             "model": ["1", 0],
-            "positive": ["5", 0],
-            "negative": ["7", 0],
+            "positive": ["7", 0],
+            "negative": ["6", 0],
             "latent_image": ["8", 0]
         }
     },
@@ -361,7 +362,7 @@ def generate_with_pose_control(
         detect_hands: Whether to detect hand poses
         detect_face: Whether to detect face pose
     """
-    workflow = json.loads(json.dumps(openpose_controlnet_workflow))
+    workflow = copy.deepcopy(openpose_controlnet_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["image"] = reference_image
@@ -404,7 +405,7 @@ def generate_with_depth_control(
         cfg: CFG scale
         seed: Random seed
     """
-    workflow = json.loads(json.dumps(depth_controlnet_workflow))
+    workflow = copy.deepcopy(depth_controlnet_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["image"] = reference_image
@@ -449,7 +450,7 @@ def generate_with_multi_controlnet(
         cfg: CFG scale
         seed: Random seed
     """
-    workflow = json.loads(json.dumps(multi_controlnet_workflow))
+    workflow = copy.deepcopy(multi_controlnet_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["image"] = reference_image

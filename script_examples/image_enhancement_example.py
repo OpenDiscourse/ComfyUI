@@ -14,6 +14,7 @@ Requirements:
 """
 
 import json
+import copy
 from urllib import request
 
 server_address = "127.0.0.1:8188"
@@ -327,7 +328,7 @@ def upscale_image(
         upscale_model: Upscaling model (RealESRGAN_x4plus.pth, ESRGAN_4x.pth, etc.)
         output_prefix: Prefix for output filename
     """
-    workflow = json.loads(json.dumps(upscaling_workflow))
+    workflow = copy.deepcopy(upscaling_workflow)
     
     workflow["1"]["inputs"]["image"] = image_filename
     workflow["2"]["inputs"]["model_name"] = upscale_model
@@ -360,7 +361,7 @@ def img2img_transform(
         cfg: CFG scale
         seed: Random seed
     """
-    workflow = json.loads(json.dumps(img2img_workflow))
+    workflow = copy.deepcopy(img2img_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["image"] = image_filename
@@ -402,7 +403,7 @@ def hires_fix_generation(
         cfg: CFG scale
         seed: Random seed
     """
-    workflow = json.loads(json.dumps(hires_fix_workflow))
+    workflow = copy.deepcopy(hires_fix_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["text"] = prompt
@@ -446,7 +447,7 @@ def upscale_and_enhance(
         cfg: CFG scale
         seed: Random seed
     """
-    workflow = json.loads(json.dumps(upscale_and_enhance_workflow))
+    workflow = copy.deepcopy(upscale_and_enhance_workflow)
     
     workflow["1"]["inputs"]["image"] = image_filename
     workflow["2"]["inputs"]["model_name"] = upscale_model

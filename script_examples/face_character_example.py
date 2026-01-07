@@ -18,6 +18,7 @@ Requirements:
 """
 
 import json
+import copy
 from urllib import request
 
 server_address = "127.0.0.1:8188"
@@ -312,7 +313,7 @@ def generate_with_character_reference(
         cfg: CFG scale
         seed: Random seed
     """
-    workflow = json.loads(json.dumps(ipadapter_workflow))
+    workflow = copy.deepcopy(ipadapter_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["image"] = reference_image
@@ -354,7 +355,7 @@ def enhance_face_details(
         cfg: CFG scale
         seed: Random seed
     """
-    workflow = json.loads(json.dumps(face_detailer_workflow))
+    workflow = copy.deepcopy(face_detailer_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["image"] = image_filename
@@ -400,7 +401,7 @@ def generate_multi_character_scene(
         cfg: CFG scale
         seed: Random seed
     """
-    workflow = json.loads(json.dumps(multi_character_workflow))
+    workflow = copy.deepcopy(multi_character_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["image"] = character_reference

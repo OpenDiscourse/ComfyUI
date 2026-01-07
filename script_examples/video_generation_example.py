@@ -13,6 +13,7 @@ Requirements:
 """
 
 import json
+import copy
 from urllib import request
 
 server_address = "127.0.0.1:8188"
@@ -277,7 +278,7 @@ def generate_text_to_video_hunyuan(
         seed: Random seed
         checkpoint: Model checkpoint filename
     """
-    workflow = json.loads(json.dumps(hunyuan_text_to_video_workflow))
+    workflow = copy.deepcopy(hunyuan_text_to_video_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["llm"] = prompt
@@ -323,7 +324,7 @@ def generate_image_to_video_hunyuan(
         checkpoint: Model checkpoint filename
         clip_vision: CLIP Vision model for image encoding
     """
-    workflow = json.loads(json.dumps(hunyuan_image_to_video_workflow))
+    workflow = copy.deepcopy(hunyuan_image_to_video_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["image"] = image_filename
@@ -367,7 +368,7 @@ def generate_text_to_video_ltxv(
         seed: Random seed
         checkpoint: Model checkpoint filename
     """
-    workflow = json.loads(json.dumps(ltxv_text_to_video_workflow))
+    workflow = copy.deepcopy(ltxv_text_to_video_workflow)
     
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint
     workflow["2"]["inputs"]["text"] = prompt
