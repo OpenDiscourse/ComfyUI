@@ -15,6 +15,7 @@ Requirements:
 """
 
 import json
+import copy
 from urllib import request
 
 # ComfyUI API server address
@@ -129,7 +130,7 @@ def run_inpainting(
         seed: Random seed
         denoise: Denoise strength (0.0-1.0)
     """
-    workflow = inpainting_workflow.copy()
+    workflow = copy.deepcopy(inpainting_workflow)
     
     # Update parameters
     workflow["1"]["inputs"]["ckpt_name"] = checkpoint

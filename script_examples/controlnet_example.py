@@ -369,9 +369,9 @@ def generate_with_pose_control(
     workflow["3"]["inputs"]["control_net_name"] = controlnet_model
     workflow["4"]["inputs"]["detect_hand"] = "enable" if detect_hands else "disable"
     workflow["4"]["inputs"]["detect_face"] = "enable" if detect_face else "disable"
-    workflow["5"]["inputs"]["strength"] = strength
-    workflow["6"]["inputs"]["text"] = prompt
-    workflow["7"]["inputs"]["text"] = negative_prompt
+    workflow["5"]["inputs"]["text"] = prompt
+    workflow["6"]["inputs"]["text"] = negative_prompt
+    workflow["7"]["inputs"]["strength"] = strength
     workflow["9"]["inputs"]["seed"] = seed
     workflow["9"]["inputs"]["steps"] = steps
     workflow["9"]["inputs"]["cfg"] = cfg
